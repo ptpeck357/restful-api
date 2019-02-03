@@ -35,9 +35,8 @@ class App extends Component {
 
     //Calling API with GET request
 		axios.get('http://www.mocky.io/v2/5a29b5672e00004a3ca09d33').then(response => {
-
       // console.log(response.data);
-        //Setting state from the response data
+      //Setting state from the response data
       this.setState({
 
         //Jobs for the the current year of that occupation
@@ -68,9 +67,6 @@ class App extends Component {
         stateChange: changeInJobs(response.data.trend_comparison.state),
         nationChange: changeInJobs(response.data.trend_comparison.nation),
 
-
-        //Industries array haven't gotten that far
-        employingIndustries: response.data.employing_industries.industries,
         getData: true
       })
     });
@@ -152,7 +148,7 @@ class App extends Component {
         }
 
         <br/>
-        {/* <Industry occupationTitle={this.state.occupationTitle}/> */}
+          <Industry/>
       </div>
     );
   }

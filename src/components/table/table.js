@@ -35,7 +35,6 @@ class Table extends Component {
             <thead>
               <tr>
                 <th>Region</th>
-
                 <th>{this.props.startYear} jobs</th>
                 <th>{this.props.endYear} jobs</th>
                 <th>Change</th>
@@ -48,21 +47,21 @@ class Table extends Component {
                 <td>{this.props.regionChange[0]}</td>
                 <td>{this.props.regionChange[1]}</td>
                 <td>{this.props.regionChange[2]}</td>
-                <td>{this.props.regionChange[3]}</td>
+                <td>{this.props.regionChange[3]}%</td>
               </tr>
               <tr>
                 <td className="row" ><span style={square}></span>State</td>
                 <td>{this.props.stateChange[0]}</td>
                 <td>{this.props.stateChange[1]}</td>
                 <td>{this.props.stateChange[2]}</td>
-                <td>{this.props.stateChange[3]}</td>
+                <td>{this.props.stateChange[3]}%</td>
               </tr>
               <tr>
                 <td className="row"><span style={triangle}></span>Nation</td>
                 <td>{this.props.nationChange[0]}</td>
                 <td>{this.props.nationChange[1]}</td>
                 <td>{this.props.nationChange[2]}</td>
-                <td>{this.props.nationChange[3]}</td>
+                <td>{this.props.nationChange[3]}%</td>
               </tr>
             </tbody>
           </table>

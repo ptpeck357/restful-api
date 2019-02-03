@@ -5,33 +5,6 @@ import "./graph.css";
 
 class Graph extends Component {
 
-
-  componentDidMount(){
-    // this.calculatesChange(trends)
-    // console.log(this.state.nationalEarnings)
-    // this.setState({
-
-    // })
-  }
-
-  //Calcuate percentage change for the following year
-  // constcalculatesChange = array => {
-  //   {
-  //     array.map(data => (
-  //       console.log()
-  //     ))
-  //   }
-
-
-  //   for (var i = array.length - 1; i > 0; i--) {
-  //       var j = Math.floor(Math.random() * (i + 1));
-  //       var temp = array[i];
-  //       array[i] = array[j];
-  //       array[j] = temp;
-  //   }
-  //   return array;
-  // }
-
   render() {
     const ctx = "graph";
     new Chart(ctx, {
@@ -64,6 +37,11 @@ class Graph extends Component {
           ]
       },
       options: {
+        elements: {
+          line: {
+            tension: 0
+          }
+        },
         legend: {
           display: false
         },

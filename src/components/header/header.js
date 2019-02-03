@@ -16,15 +16,15 @@ class Header extends Component {
         </div>
 
         <div className="summary">
-          <p className="mt-4 titleSummary" style={{color: "green"}}>+10.2%</p>
+          <p className="mt-4 titleSummary" style={{color: "green"}}>+{this.props.regional_avg}%</p>
           <p className="subTitle">% Change ({this.props.startYear}-{this.props.endYear})</p>
-          <p>Nation <span style={{color: "green"}}>+8.5%</span></p>
+          <p>Nation <span style={{color: "green"}}>+{this.props.national_avg}%</span></p>
         </div>
 
         <div className="summary">
-          <p className="mt-4 titleSummary">$57.24/hr</p>
+          <p className="mt-4 titleSummary">${this.props.regionalEarnings}/hr</p>
           <p className="subTitle">Median Hourly Earnings</p>
-          <p>Nation: $38.20/hr</p>
+          <p>Nation: ${this.props.nationalEarnings}/hr</p>
         </div>
 
       </div>

@@ -6998,6 +6998,11 @@ pbkdf2@^3.0.3:
     safe-buffer "^5.0.1"
     sha.js "^2.4.8"
 
+percentage-difference@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/percentage-difference/-/percentage-difference-2.0.0.tgz#dde6f47b8126ee159089c1c8008e22c8558fba98"
+  integrity sha1-3eb0e4Em7hWQicHIAI4iyFWPupg=
+
 performance-now@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"

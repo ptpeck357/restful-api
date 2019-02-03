@@ -5,44 +5,67 @@ import "./graph.css";
 
 class Graph extends Component {
 
-  render() {
 
+  componentDidMount(){
+    // this.calculatesChange(trends)
+    // console.log(this.state.nationalEarnings)
+    // this.setState({
+
+    // })
+  }
+
+  //Calcuate percentage change for the following year
+  // constcalculatesChange = array => {
+  //   {
+  //     array.map(data => (
+  //       console.log()
+  //     ))
+  //   }
+
+
+  //   for (var i = array.length - 1; i > 0; i--) {
+  //       var j = Math.floor(Math.random() * (i + 1));
+  //       var temp = array[i];
+  //       array[i] = array[j];
+  //       array[j] = temp;
+  //   }
+  //   return array;
+  // }
+
+  render() {
     const ctx = "graph";
-    const myChart = new Chart(ctx, {
+    new Chart(ctx, {
       type: 'line',
       data: {
-          labels: ["2001", "2003", "2005", "2007", "2009", "2011", "2013", "2015", "2017","2019", "2021", "2023", "2025"],
+          labels: ["2013", "2014", "2015", "2016", "2017", "2018"],
           datasets: [
             {
               fill:false,
-              borderColor: "rgb(25,25,112)",
-              borderWidth: 1,
+              borderColor: "rgb(112, 25, 25)",
+              borderWidth: 2,
               data: this.props.regionalTrends
             },
             {
               fill:false,
               borderColor: "rgb(0,0,255)",
-              borderWidth: 1,
+              borderWidth: 2,
               data: this.props.stateTrends,
+              pointStyle:'rect'
             },
             {
               fill:false,
               borderColor: "rgb(0,191,255)",
-              borderWidth: 1,
+              borderWidth: 2,
               data: this.props.nationTrends,
+              borderDash: [10,5],
+              pointStyle:'triangle'
+
             }
           ]
       },
       options: {
         legend: {
           display: false
-        },
-        tooltips: {
-          callbacks: {
-            label: function(tooltipItem) {
-              return tooltipItem.yLabel;
-            }
-          }
         },
         scales: {
           yAxes: [
@@ -51,8 +74,8 @@ class Graph extends Component {
                 color: "rgba(0, 0, 0, 0)",
               },
               ticks: {
-                min: -20,
-                max: 70
+                min: -10
+                // max: 70
               },
               scaleLabel: {
                 display: true,

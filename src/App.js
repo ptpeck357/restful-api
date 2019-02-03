@@ -9,22 +9,54 @@ import './App.css';
 class App extends Component {
 
   state = {
+    occupationTitle: "",
+    regionTitle: "",
+    jobCount: "",
+    regionalYear: "",
+    startYear: "",
+    endYear: "",
+    regionalTrends: "",
+    stateTrends: "",
+    nationTrends: ""
 
   }
   componentWillMount(){
+
+    //Calling API with GET request
 		axios.get('http://www.mocky.io/v2/5a29b5672e00004a3ca09d33').then(response => {
-			console.log(response)
+      console.log(response.data)
+
+      //Setting state to the response
+      this.setState({
+        occupationTitle: response.data.occupation.title,
+        regionTitle: response.data.occupation.title,
+        jobCount: response.data.summary.jobs.regional,
+        regionalYear: response.data.summary.jobs.year,
+        startYear: response.data.summary.jobs_growth.start_year,
+        endYear: response.data.summary.jobs_growth.end_year,
+        regionalTrends: response.data.trend_comparison.regional,
+        stateTrends: response.data.trend_comparison.state,
+        nationTrends: response.data.trend_comparison.nation
+      })
+
 		});
 	};
 
   render() {
     return (
       <div className="container">
-        <h2>Occupation Overview</h2>
-        <p className="title mb-2">Computer Programmers in Seattle-Tacoma-Bellevue, WA</p>
+        <h3 className="mt-4">Occupation Overview</h3>
+        <p className="title mb-4">{this.state.occupationTitle} in {this.state.regionTitle}</p>
         <br/>
         <br/>
-        <Header/>
+        <Header
+          title={this.state.regionTitle}
+          jobCount={this.state.jobCount}
+          regionalYear={this.state.regionalYear}
+          startYear={this.state.startYear}
+          endYear={this.state.endYear}
+
+        />
         <br/>
         <Graph/>
         <Table/>

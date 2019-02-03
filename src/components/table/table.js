@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import "./table.css";
 
 const square =  {
@@ -25,44 +25,51 @@ const triangle = {
   marginTop: "7px"
 }
 
-const Table = props => (
-  <div>
-    <table className="table table-striped">
-      <thead>
-        <tr>
-          <th className="">Region</th>
-          <th className="">{props.startYear} jobs</th>
-          <th className="">{props.endYear} jobs</th>
-          <th className="">Change</th>
-          <th className="">% Change</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td className="row"><span style={circle}></span>Region</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>{props.regionChange}</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td className="row" ><span style={square}></span>State</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>{props.stateChange}</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td className="row"><span style={triangle}></span>Nation</td>
-          <td>Larry</td>
-          <td>the Bird</td>
-          <td>{props.nationChange}</td>
-          <td>@twitter</td>
-        </tr>
-      </tbody>
-    </table>
-</div>
-);
+class Table extends Component {
+
+  render() {
+    return(
+      <div>
+        <div>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>Region</th>
+
+                <th>{this.props.startYear} jobs</th>
+                <th>{this.props.endYear} jobs</th>
+                <th>Change</th>
+                <th>% Change</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td className="row"><span style={circle}></span>Region</td>
+                <td>{this.props.regionChange[0]}</td>
+                <td>{this.props.regionChange[1]}</td>
+                <td>{this.props.regionChange[2]}</td>
+                <td>{this.props.regionChange[3]}</td>
+              </tr>
+              <tr>
+                <td className="row" ><span style={square}></span>State</td>
+                <td>{this.props.stateChange[0]}</td>
+                <td>{this.props.stateChange[1]}</td>
+                <td>{this.props.stateChange[2]}</td>
+                <td>{this.props.stateChange[3]}</td>
+              </tr>
+              <tr>
+                <td className="row"><span style={triangle}></span>Nation</td>
+                <td>{this.props.nationChange[0]}</td>
+                <td>{this.props.nationChange[1]}</td>
+                <td>{this.props.nationChange[2]}</td>
+                <td>{this.props.nationChange[3]}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+    </div>
+    )
+  };
+};
 
 export default Table;
-

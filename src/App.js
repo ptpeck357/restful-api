@@ -26,7 +26,8 @@ class App extends Component {
       regionChange: null,
       stateChange: null,
       nationChange: null,
-      employingIndustries: ""
+      employingIndustries: "",
+      getData: false
     }
 
   //Calls API before components mounts
@@ -34,12 +35,9 @@ class App extends Component {
 
     //Calling API with GET request
 		axios.get('http://www.mocky.io/v2/5a29b5672e00004a3ca09d33').then(response => {
-      // console.log(response.data);
-      // console.log(constcalculatesChange(response.data.trend_comparison.regional))
-      // constcalculatesChange(response.data.trend_comparison.state)
-      // constcalculatesChange(response.data.trend_comparison.nation)
 
-      //Setting state from the response data
+      // console.log(response.data);
+        //Setting state from the response data
       this.setState({
 
         //Jobs for the the current year of that occupation
@@ -71,45 +69,45 @@ class App extends Component {
         nationChange: changeInJobs(response.data.trend_comparison.nation),
 
 
-        //Industries array
+        //Industries array haven't gotten that far
         employingIndustries: response.data.employing_industries.industries,
-
+        getData: true
       })
     });
 
       //Calcuate percentage change for the following year
       const constcalculatesChange = array => {
         var diffs = [];
-        var previousYearVal;
-
-        // arr.map(function(yearVal) {
-        //     // if(previousYearVal){
-        //       diffs.push(percentDiff(yearVal, previousYearVal));
-        //     // }
-
-        //     previousYearVal = yearVal;
-        // });
-        for(let i=0; i < array.length; i++){
-          diffs.push(percentDiff(array[i], array[i+1]));
-          if(array[i]===array[array.length - 1]){
-            console.log("hi");
+          for(let i=0; i < array.length; i++){
+            diffs.push(percentDiff(array[0], array[i]))
           }
-        }
-        return(diffs); // [50, 20, -400] values in percent
-
+        // Return values in percent
+        return(diffs);
       }
 
-      //Find change percentage in jobs from 2013 to 2018
+      //Find change in percentage in jobs from 2013 to 2018
       const changeInJobs = array => {
+
+        //Jobs in the first year (2013)
         let startYear = array[0];
+
+        //Jobs in the last year (2018)
         let endYear = array[array.length - 1];
-        let change = Math.abs(array[0]-array[array.length - 1]);
-        let obj=[
-          startYear,
-          endYear,
-          change
-        ]
-        return obj;
+
+        //Change in jobs from 2013 to the end of 2018
+        let change = (array[array.length - 1]-array[0]);
+
+        //Calculating in change in jobs in percentage
+        let jobChange = ((change/startYear)*100).toFixed(1);
+
+        let data=[];
+        data.push(startYear)
+        data.push(endYear)
+        data.push(change)
+        data.push(jobChange)
+
+        //Returning array of arrays to sendback to set state
+        return data;
       }
 	};
 
@@ -120,6 +118,8 @@ class App extends Component {
         <p className="title mb-4">{this.state.occupationTitle} in {this.state.regionTitle}</p>
         <br/>
         <br/>
+
+        {/* Header with 3 summary boxes */}
         <Header
           title={this.state.regionTitle}
           jobCount={this.state.jobCount}
@@ -139,13 +139,18 @@ class App extends Component {
           nationTrends={this.state.nationTrends}
         />
         <br/>
-        <Table
+
+        {/* If state.getData is true, render the component */}
+        {this.state.getData &&
+          <Table
           startYear={this.state.startYear}
           endYear={this.state.endYear}
           regionChange={this.state.regionChange}
           stateChange={this.state.stateChange}
           nationChange={this.state.nationChange}
-        />
+          />
+        }
+
         <br/>
         {/* <Industry occupationTitle={this.state.occupationTitle}/> */}
       </div>

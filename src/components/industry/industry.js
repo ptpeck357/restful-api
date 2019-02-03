@@ -26,7 +26,7 @@ class Industry extends Component {
         }
       }
 
-    });
+    })
 
     return(
       <div>

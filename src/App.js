@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Header from "./components/header/header.js";
-import Graphs from "./components/graphs/graphs.js";
+import Graph from "./components/graph/graph.js";
+import Table from "./components/table/table.js";
+// import Industry from "./components/industry/industry.js";
 import './App.css';
 
 class App extends Component {
@@ -24,6 +26,9 @@ class App extends Component {
         <br/>
         <Header/>
         <br/>
+        <Graph/>
+        <Table/>
+        {/* <Industry/> */}
       </div>
     );
   }

@@ -6,60 +6,69 @@ import "./graph.css";
 class Graph extends Component {
 
   render() {
-    var ctx = "graph";
 
-    var myChart = new Chart(ctx, {
+    const ctx = "graph";
+    const myChart = new Chart(ctx, {
       type: 'line',
       data: {
           labels: ["2001", "2003", "2005", "2007", "2009", "2011", "2013", "2015", "2017","2019", "2021", "2023", "2025"],
           datasets: [
             {
-              label: "Data1",
               fill:false,
-              strokeColor: "rgba(220,220,220,1)",
-              pointColor: "rgba(200,122,20,1)",
-              data: [34, 24, 40, 55],
-              displayColors: false
-          },
-          {
-              label: "Data2",
+              borderColor: "rgb(25,25,112)",
+              borderWidth: 1,
+              data: this.props.regionalTrends
+            },
+            {
               fill:false,
-              strokeColor: 'rgba(220,180,0,1)',
-              pointColor: 'rgba(220,180,0,1)',
-              data: [0, 20, 40, 50]
-          },
-          {
-
-              label: "Data5",
+              borderColor: "rgb(0,0,255)",
+              borderWidth: 1,
+              data: this.props.stateTrends,
+            },
+            {
               fill:false,
-              fillColor: "rgba(0,0,0,0)",
-              strokeColor: "rgba(151,187,205,1)",
-              pointColor: "rgba(152,188,204,1)",
-              data: [0, 20, 40, 50]
-          },
-
+              borderColor: "rgb(0,191,255)",
+              borderWidth: 1,
+              data: this.props.nationTrends,
+            }
           ]
       },
       options: {
-          scales: {
-            xAxes: [{
-             
-            }],
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:false
-                  }
-              }]
+        legend: {
+          display: false
+        },
+        tooltips: {
+          callbacks: {
+            label: function(tooltipItem) {
+              return tooltipItem.yLabel;
+            }
           }
+        },
+        scales: {
+          yAxes: [
+            {
+              gridLines: {
+                color: "rgba(0, 0, 0, 0)",
+              },
+              ticks: {
+                min: -20,
+                max: 70
+              },
+              scaleLabel: {
+                display: true,
+                labelString: "Percentage Change"
+              }
+            }
+          ]
+        }
       }
     });
 
     return(
       <div>
-
-    <canvas id="graph" width="" height=""></canvas>
-
-
+        <p className="title">Regional Trends</p>
+        <hr style={{borderWidth:"3px"}}/>
+        <canvas id="graph"></canvas>
       </div>
     )
   };

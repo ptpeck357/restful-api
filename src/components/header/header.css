@@ -1,8 +1,19 @@
 .summary {
   width: 33.33%;
-  border: 1px solid #b8c0bf;
   float: left;
   height: 200px;
   text-align: center;
   display: block;
+  margin-bottom: 100px;
+}
+.summary:nth-child(2) {
+  border-top: 1px solid #b8c0bf;
+  border-bottom: 1px solid #b8c0bf;
+}
+.summary:nth-child(3) {
+  border: 1px solid #b8c0bf;
+}
+.summary:nth-child(4) {
+  border-top: 1px solid #b8c0bf;
+  border-bottom: 1px solid #b8c0bf;
 }

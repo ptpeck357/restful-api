@@ -3,7 +3,7 @@ import axios from 'axios';
 import Header from "./components/header/header.js";
 import Graph from "./components/graph/graph.js";
 import Table from "./components/table/table.js";
-// import Industry from "./components/industry/industry.js";
+import Industry from "./components/industry/industry.js";
 import './App.css';
 
 class App extends Component {
@@ -57,10 +57,15 @@ class App extends Component {
           endYear={this.state.endYear}
 
         />
+        <Graph
+          regionalTrends = {this.state.regionalTrends}
+          stateTrends = {this.state.stateTrends}
+          nationTrends = {this.state.nationTrends}
+        />
         <br/>
-        <Graph/>
         <Table/>
-        {/* <Industry/> */}
+        <br/>
+        <Industry occupationTitle={this.state.occupationTitle}/>
       </div>
     );
   }

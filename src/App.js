@@ -17,8 +17,8 @@ class App extends Component {
     endYear: "",
     regionalTrends: "",
     stateTrends: "",
-    nationTrends: ""
-
+    nationTrends: "",
+    employingIndustries: ""
   }
   componentWillMount(){
 
@@ -36,9 +36,9 @@ class App extends Component {
         endYear: response.data.summary.jobs_growth.end_year,
         regionalTrends: response.data.trend_comparison.regional,
         stateTrends: response.data.trend_comparison.state,
-        nationTrends: response.data.trend_comparison.nation
+        nationTrends: response.data.trend_comparison.nation,
+        employingIndustries: response.data.employing_industries.industries,
       })
-
 		});
 	};
 
@@ -55,7 +55,6 @@ class App extends Component {
           regionalYear={this.state.regionalYear}
           startYear={this.state.startYear}
           endYear={this.state.endYear}
-
         />
         <Graph
           regionalTrends = {this.state.regionalTrends}

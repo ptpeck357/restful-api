@@ -1,7 +1,6 @@
 {
   "name": "restful-api",
   "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
-  "proxy": "http://localhost:3001",
   "version": "1.0.0",
   "main": "server.js",
   "devDependencies": {},
@@ -25,8 +24,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "dev": "concurrently --kill-others-on-fail \"nodemon server.js\" \"yarn start\""
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"

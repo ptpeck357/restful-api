@@ -43,7 +43,7 @@ class App extends Component {
     return (
       <div className="container">
         <h3 className="mt-4">Occupation Overview</h3>
-        <p className="title mb-4">{this.state.data} in {this.state.regionTitle}</p>
+        <p className="title mb-4">{this.state.title} in {this.state.regionTitle}</p>
         <br/>
         <br/>
 

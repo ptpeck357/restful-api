@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import axios from 'axios';
-import "./industry.css";
+// import "./industry.css";
 
 class Industry extends Component {
 
+  //Declaring states
   state={
     year: null,
     jobs2015: null,
@@ -11,70 +11,68 @@ class Industry extends Component {
     in_occupation_jobs: [],
     title: [],
     changeNation: []
-  }
+  };
 
   componentWillMount(){
 
-    axios.get('http://www.mocky.io/v2/5a29b5672e00004a3ca09d33').then(response => {
-      // console.log(response.data);
-
-       //Setting state from the response data
-      this.setState({
-        year: response.data.employing_industries.year,
-        title: parsingName(response.data.employing_industries.industries),
-        in_occupation_jobs: parsingJobs(response.data.employing_industries.industries, response.data.employing_industries.jobs),
-        jobsPeryear:  startYears(response.data.employing_industries.industries),
-        changeNation: occupationRatio(response.data.employing_industries.industries)
-      })
-    })
-
-    //Parsing through API and getting job titles and putting them into an array
-    const parsingName = obj => {
-      let jobTitles = [];
-      obj.forEach(element => {
-        jobTitles.push(element.title);
-      });
-      return jobTitles;
-    };
-
-    //Parsing through API and calculating change in occupation jobs
+    // console.log(this.props.dataObj);
     const parsingJobs = (obj, total) => {
 
       //Total jobs(12352) for 2015
       let totalJobs=total;
-      let occupationIndustry = [];
+      let IndustryArr = [];
 
       //Looping through array and find the change in ratio
       obj.forEach(element => {
-        occupationIndustry.push((element.in_occupation_jobs/totalJobs * 100).toFixed(1))
+        IndustryArr.push((element.in_occupation_jobs/totalJobs * 100).toFixed(1));
       })
-      return occupationIndustry;
+      return IndustryArr;
     };
 
-    //Parsing through API and calculating change in occupation to industry
+    //Parsing through prop.dataObj and getting job titles and putting them into an array
+    const parsingName = obj => {
+      let jobTitlesArr = [];
+      obj.forEach(element => {
+        jobTitlesArr.push(element.title);
+      });
+      return jobTitlesArr;
+    };
+
+    //Parsing through prop.dataObj and calculating change in occupation to industry
     const startYears = obj => {
-      let startJobs = [];
+      let startJobsArr = [];
 
       //Looping through array and find the change in ratio
       obj.forEach(element => {
-        startJobs.push((element.in_occupation_jobs))
-      })
-      return startJobs;
+        startJobsArr.push((element.in_occupation_jobs));
+      });
+      return startJobsArr;
     };
 
-    //Parsing through API and calculating change in jobs to industry
+    //Parsing through props and calculating change in jobs to industry
     const occupationRatio = arr => {
-      let change = [];
+      let changeArry = [];
 
       //Looping through array and find the change in ratio
       arr.forEach(element => {
         let occupationJobs = element.in_occupation_jobs;
         let totalJobs = element.jobs;
-        change.push((occupationJobs/totalJobs * 100).toFixed(1))
-      })
-      return change;
+        changeArry.push((occupationJobs/totalJobs * 100).toFixed(1));
+      });
+      return changeArry;
     };
 
+    //Shortening name
+    let data = this.props.dataObj;
+
+    //Setting state from the prop.dataObj
+    this.setState({
+      year: data.employing_industries.year,
+      title: parsingName(data.employing_industries.industries),
+      in_occupation_jobs: parsingJobs(data.employing_industries.industries, data.employing_industries.jobs),
+      jobsPeryear:  startYears(data.employing_industries.industries),
+      changeNation: occupationRatio(data.employing_industries.industries)
+    });
   };
 
   render() {
@@ -125,7 +123,7 @@ class Industry extends Component {
           </table>
       </div>
     </div>
-    )
+    );
   };
 };
 

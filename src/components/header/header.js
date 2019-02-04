@@ -23,7 +23,7 @@ class Header extends Component {
     //Find change in growth
     const changeAve = (regional, national) =>{
       let changeGrowth = ((regional/national)*100).toFixed(1);
-      console.log(changeGrowth);
+      // console.log(changeGrowth);
       return changeGrowth;
     };
 

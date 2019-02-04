@@ -9,11 +9,9 @@ To get started (if cloning), run following commands in terminal.
 * Bootstrap 4
 * React
 * Chart.js
-* percentage-difference
-* Axios
 
 ### Node Package Dependencies Reference
-* axios
+* Axios
 * percentage-difference
 
 ## Author

@@ -7,7 +7,9 @@ class Header extends Component {
   state={
     occupationTitle: "",
     regionTitle: "",
-    jobCount: "",
+    jobRegional: "",
+    jobNational: "",
+    above: "",
     regionalYear: "",
     startYear: "",
     endYear: "",
@@ -18,6 +20,13 @@ class Header extends Component {
   };
   componentDidMount(){
 
+    //Find change in growth
+    const changeAve = (regional, national) =>{
+      let changeGrowth = ((regional/national)*100).toFixed(1);
+      console.log(changeGrowth);
+      return changeGrowth;
+    };
+
     //Shortening name
     let data = this.props.dataObj;
     // console.log(data);
@@ -26,7 +35,8 @@ class Header extends Component {
       //Jobs for the the current year of that occupation
       occupationTitle: data.occupation.title,
       // regionTitle: data.occupation.title,
-      jobCount: data.summary.jobs.regional,
+      jobRegional: data.summary.jobs.regional,
+      jobNational: data.summary.jobs.national_avg,
       regionalYear: data.summary.jobs.year,
 
       //Start and end year of job growth
@@ -36,6 +46,7 @@ class Header extends Component {
       //Job growth change
       regional_avg: data.summary.jobs_growth.regional,
       national_avg: data.summary.jobs_growth.national_avg,
+      jobMedian: changeAve(data.summary.jobs.regional, data.summary.jobs.national_avg),
 
       //Salary
       regionalEarnings: data.summary.earnings.regional,
@@ -51,9 +62,9 @@ class Header extends Component {
         <p className="title">Occupation Summary for {this.state.occupationTitle}</p>
 
         <div className="summary">
-          <p className="mt-4 titleSummary">{this.state.jobCount}</p>
+          <p className="mt-4 titleSummary">{this.state.jobRegional}</p>
           <p className="subTitle">Jobs({this.state.regionalYear})</p>
-          <p>190% <span style={{color: "green"}}>above</span> National Average</p>
+          <p>{this.state.jobMedian}% <span style={{color: "green"}}>above</span> National Average</p>
         </div>
 
         <div className="summary">

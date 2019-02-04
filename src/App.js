@@ -65,14 +65,14 @@ class App extends Component {
         {/* If state.getData is true, render the component */}
         {this.state.getData &&
           <Table
-          dataObj={this.state.dataObj}
+            dataObj={this.state.dataObj}
           />
         }
         <br/>
         {/* If state.getData is true, render the component */}
         {this.state.getData &&
           <Industry
-          dataObj={this.state.dataObj}
+            dataObj={this.state.dataObj}
           />
         }
       </div>

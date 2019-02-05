@@ -9,8 +9,11 @@ class Graph extends Component {
   state={
     regionalTrends: null,
     stateTrends: null,
-    nationTrends: null
+    nationTrends: null,
+    yearsArr: []
   };
+
+  //Loads props after componented mounted
   componentDidMount(){
 
     //Calcuate percentage change for the following year
@@ -18,10 +21,19 @@ class Graph extends Component {
       let diffsArr = [];
         for(let i=0; i < array.length; i++){
           diffsArr.push(percentDiff(array[0], array[i]))
-        }
+        };
       // Return values in percent
       return(diffsArr);
-    }
+    };
+
+    //Generating year range for x-axis from start to end
+    const labels = (start, end) => {
+      let yearsArr = [];
+      for(let i = start; i <= end; i++){
+        yearsArr.push(i);
+      };
+      return(yearsArr);
+    };
 
     //Shortening name
     let data = this.props.dataObj;
@@ -32,6 +44,7 @@ class Graph extends Component {
       regionalTrends: constcalculatesChange(data.trend_comparison.regional),
       stateTrends: constcalculatesChange(data.trend_comparison.state),
       nationTrends: constcalculatesChange(data.trend_comparison.nation),
+      yearsArr: labels(data.summary.jobs_growth.start_year,data.summary.jobs_growth.end_year)
 
     });
   };
@@ -41,7 +54,7 @@ class Graph extends Component {
     new Chart(ctx, {
       type: 'line',
       data: {
-          labels: ["2013", "2014", "2015", "2016", "2017", "2018"],
+          labels: this.state.yearsArr,
           datasets: [
             {
               fill:false,

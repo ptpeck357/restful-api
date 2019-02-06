@@ -6,7 +6,6 @@ const square =  {
   height: 10,
   backgroundColor: 'blue',
   marginTop: "7px",
-  // paddingRight: "15px",
   marginLeft: "-15px"
 }
 
@@ -16,7 +15,6 @@ const circle= {
   borderRadius: 10/2,
   backgroundColor: 'rgb(112, 25, 25)',
   marginTop: "7px",
-  // paddingRight: "15px",
   marginLeft: "-15px"
 }
 
@@ -27,7 +25,6 @@ const triangle = {
   borderWidth: '0 5px 10px 5px',
   borderColor: 'transparent transparent rgb(0,191,255) transparent',
   marginTop: "7px",
-  // paddingRight: "15px",
   marginLeft: "-15px"
 }
 
@@ -37,7 +34,9 @@ class Table extends Component {
   state={
     regionChange: [],
     stateChange: [],
-    nationChange: []
+    nationChange: [],
+    startYear: null,
+    endYear: null
   };
 
   componentDidMount(){
@@ -74,9 +73,13 @@ class Table extends Component {
       //Region Change
       regionChange: changeInJobs(data.trend_comparison.regional),
       stateChange: changeInJobs(data.trend_comparison.state),
-      nationChange: changeInJobs(data.trend_comparison.nation)
-    });
+      nationChange: changeInJobs(data.trend_comparison.nation),
 
+       //Start and end year of job growth
+       startYear: data.summary.jobs_growth.start_year,
+       endYear: data.summary.jobs_growth.end_year,
+
+    });
   };
 
   render() {
@@ -119,7 +122,7 @@ class Table extends Component {
           </table>
       </div>
     </div>
-    )
+    );
   };
 };
 

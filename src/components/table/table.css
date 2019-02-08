@@ -1,3 +1,27 @@
-.tableTitle{
+.tableTitle {
   padding-left: 0px !important;
+}
+.circle {
+  width: 10px;
+  height: 10px;
+  border-radius: 10/2;
+  background-color: rgb(112, 25, 25);
+  margin-top: 7px;
+  margin-left: -15px;
+}
+.square {
+  width: 10px;
+  height: 10px;
+  background-color: blue;
+  margin-top: 7px;
+  margin-left: -15px;
+}
+.triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 5px 10px 5px;
+  border-color: transparent transparent rgb(0,191,255) transparent;
+  margin-top: 7px;
+  margin-left: -15px;
 }

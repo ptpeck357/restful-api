@@ -15,11 +15,12 @@ class App extends Component {
   };
 
   //Calls API before components mounts
-  componentDidMount(){
+  componentWillMount(){
 
     //Calling API with GET request
 		axios.get('https://www.mocky.io/v2/5a29b5672e00004a3ca09d33').then(response => {
       // console.log(response.data);
+
       //Setting state from the response data
       this.setState({
 
@@ -35,6 +36,7 @@ class App extends Component {
         dataObj: response.data,
 
         getData: true
+
       });
     });
   };
@@ -64,6 +66,7 @@ class App extends Component {
         <br/>
         {/* If state.getData is true, render the component */}
         {this.state.getData &&
+          /*Table of jobs and change in jobs*/
           <Table
             dataObj={this.state.dataObj}
           />
@@ -71,6 +74,7 @@ class App extends Component {
         <br/>
         {/* If state.getData is true, render the component */}
         {this.state.getData &&
+          /*Industry Table */
           <Industry
             dataObj={this.state.dataObj}
           />

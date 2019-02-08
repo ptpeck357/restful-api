@@ -1,33 +1,6 @@
 import React, { Component } from "react";
 import "./table.css";
 
-const square =  {
-  width: 10,
-  height: 10,
-  backgroundColor: 'blue',
-  marginTop: "7px",
-  marginLeft: "-15px"
-}
-
-const circle= {
-  width: 10,
-  height: 10,
-  borderRadius: 10/2,
-  backgroundColor: 'rgb(112, 25, 25)',
-  marginTop: "7px",
-  marginLeft: "-15px"
-}
-
-const triangle = {
-  width: 0,
-  height: 0,
-  borderStyle: 'solid',
-  borderWidth: '0 5px 10px 5px',
-  borderColor: 'transparent transparent rgb(0,191,255) transparent',
-  marginTop: "7px",
-  marginLeft: "-15px"
-}
-
 class Table extends Component {
 
   //Declaring states
@@ -64,7 +37,7 @@ class Table extends Component {
 
       //Returning array of arrays to sendback to set state
       return dataArr;
-    }
+    };
 
     let data = this.props.dataObj;
     // console.log(data);
@@ -75,10 +48,18 @@ class Table extends Component {
       stateChange: changeInJobs(data.trend_comparison.state),
       nationChange: changeInJobs(data.trend_comparison.nation),
 
-       //Start and end year of job growth
-       startYear: data.summary.jobs_growth.start_year,
-       endYear: data.summary.jobs_growth.end_year,
+      //Start and end year of job growth
+      startYear: data.summary.jobs_growth.start_year,
+      endYear: data.summary.jobs_growth.end_year,
 
+    });
+
+    this.setState({
+      dataObj: {
+        regionChange: this.state.nationChange,
+        stateChange: this.state.stateChange,
+        nationChange: this.state.nationChange
+      }
     });
   };
 
@@ -98,21 +79,21 @@ class Table extends Component {
             </thead>
             <tbody>
               <tr>
-                <td className="row"><span className="mr-2" style={circle}></span>Region</td>
+                <td className="row"><span className="mr-2 circle"></span>Region</td>
                 <td>{this.state.regionChange[0]}</td>
                 <td>{this.state.regionChange[1]}</td>
                 <td>{this.state.regionChange[2]}</td>
                 <td>{this.state.regionChange[3]}%</td>
               </tr>
               <tr>
-                <td className="row" ><span className="mr-2" style={square}></span>State</td>
+                <td className="row" ><span className="mr-2 square"></span>State</td>
                 <td>{this.state.stateChange[0]}</td>
                 <td>{this.state.stateChange[1]}</td>
                 <td>{this.state.stateChange[2]}</td>
                 <td>{this.state.stateChange[3]}%</td>
               </tr>
               <tr>
-                <td className="row"><span className="mr-2" style={triangle}></span>Nation</td>
+                <td className="row"><span className="mr-2 triangle"></span>Nation</td>
                 <td>{this.state.nationChange[0]}</td>
                 <td>{this.state.nationChange[1]}</td>
                 <td>{this.state.nationChange[2]}</td>

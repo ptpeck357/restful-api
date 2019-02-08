@@ -41,6 +41,7 @@ class Table extends Component {
 
     let data = this.props.dataObj;
     // console.log(data);
+
     this.setState({
 
       //Region Change

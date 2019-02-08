@@ -22,6 +22,7 @@ class Graph extends Component {
         for(let i=0; i < array.length; i++){
           diffsArr.push(percentDiff(array[0], array[i]))
         };
+
       // Return values in percent
       return(diffsArr);
     };
@@ -38,6 +39,7 @@ class Graph extends Component {
     //Shortening name
     let data = this.props.dataObj;
     // console.log(data);
+
     this.setState({
 
       //Trends

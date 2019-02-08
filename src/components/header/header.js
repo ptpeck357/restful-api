@@ -5,18 +5,18 @@ class Header extends Component {
 
   //Declaring states
   state={
-    occupationTitle: "",
-    regionTitle: "",
-    jobRegional: "",
-    jobNational: "",
-    above: "",
-    regionalYear: "",
-    startYear: "",
-    endYear: "",
-    regional_avg: "",
-    national_avg: "",
-    regionalEarnings: "",
-    nationalEarnings: ""
+    occupationTitle: null,
+    regionTitle: null,
+    jobRegional: null,
+    jobNational: null,
+    above: null,
+    regionalYear: null,
+    startYear: null,
+    endYear:null,
+    regional_avg:null,
+    national_avg: null,
+    regionalEarnings: null,
+    nationalEarnings: null
   };
   componentDidMount(){
 
@@ -24,17 +24,18 @@ class Header extends Component {
     const changeAve = (regional, national) =>{
       let changeGrowth = ((regional/national)*100).toFixed(1);
       // console.log(changeGrowth);
+
       return changeGrowth;
     };
 
     //Shortening name
     let data = this.props.dataObj;
     // console.log(data);
+
     this.setState({
 
       //Jobs for the the current year of that occupation
       occupationTitle: data.occupation.title,
-      // regionTitle: data.occupation.title,
       jobRegional: data.summary.jobs.regional,
       jobNational: data.summary.jobs.national_avg,
       regionalYear: data.summary.jobs.year,
@@ -59,6 +60,7 @@ class Header extends Component {
 
     return(
       <div className="header">
+
         <p className="title">Occupation Summary for {this.state.occupationTitle}</p>
 
         <div className="summary">

@@ -18,7 +18,7 @@ class App extends Component {
   componentWillMount(){
 
     //Calling API with GET request
-		axios.get('https://www.mocky.io/v2/5a29b5672e00004a3ca09d33').then(response => {
+    axios.get('http://www.mocky.io/v2/5a29b5672e00004a3ca09d33').then(response => {
       // console.log(response.data);
 
       //Setting state from the response data

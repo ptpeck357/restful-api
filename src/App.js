@@ -1,87 +1,71 @@
-import React, { Component } from 'react';
+import React, {useEffect, useState } from 'react';
 import axios from 'axios';
+
 import Header from "./components/header/header.js";
 import Graph from "./components/graph/graph.js";
 import Table from "./components/table/table.js";
 import Industry from "./components/industry/industry.js";
+
 import './App.css';
 
-class App extends Component {
+function App(){
+	const [data, setData] = useState({});
+	const [isLoading, setIsLoading] = useState(false);
+	const [occupationTitle, setOccupationTitle] = useState('');
+	const [areaTitle, setAreaTitle] = useState('');
 
-  //Declaring states
-  state = {
-    dataObj: null,
-    getData: false
-  };
+	const apiUrl = 'http://www.mocky.io/v2/5a29b5672e00004a3ca09d33';
 
-  //Calls API before components mounts
-  componentWillMount(){
+	useEffect(() => {
+		axios.get(apiUrl).then(response => {
+			const data = response.data;
 
-    //Calling API with GET request
-    axios.get('http://www.mocky.io/v2/5a29b5672e00004a3ca09d33').then(response => {
-      // console.log(response.data);
+			setData(data);
+			setOccupationTitle(data.occupation.title);
+			setAreaTitle(data.region.title);
+			setIsLoading(true);
+		})
+		.catch(error => {
+			console.log('error', error);
+			setIsLoading(false);
+		});
+	}, [])
 
-      //Setting state from the response data
-      this.setState({
+	return (
+		<div className="container">
+			<h3 className="mt-4">Occupation Overview</h3>
+			<p className="title mb-4">{occupationTitle} in {areaTitle}</p>
+			<br/>
+			<br/>
 
-        //Titles
-        title: response.data.occupation.title,
-        regionTitle: response.data.region.title,
+			{isLoading &&
+				<Header
+					dataObj={data}
+				/>
+			}
 
-        //Start and end year of job growth
-        startYear: response.data.summary.jobs_growth.start_year,
-        endYear: response.data.summary.jobs_growth.end_year,
-
-        //Data object from response
-        dataObj: response.data,
-
-        getData: true
-
-      });
-    });
-  };
-
-  render() {
-    return (
-      <div className="container">
-        <h3 className="mt-4">Occupation Overview</h3>
-        <p className="title mb-4">{this.state.title} in {this.state.regionTitle}</p>
-        <br/>
-        <br/>
-
-        {/* Header with 3 summary boxes */}
-        {this.state.getData &&
-          <Header
-            dataObj={this.state.dataObj}
-          />
-        }
-
-        {/* If state.getData is true, render the component */}
-        {this.state.getData &&
-          /* Regional Trend Table */
-          <Graph
-            dataObj={this.state.dataObj}
-          />
-        }
-        <br/>
-        {/* If state.getData is true, render the component */}
-        {this.state.getData &&
-          /*Table of jobs and change in jobs*/
-          <Table
-            dataObj={this.state.dataObj}
-          />
-        }
-        <br/>
-        {/* If state.getData is true, render the component */}
-        {this.state.getData &&
-          /*Industry Table */
-          <Industry
-            dataObj={this.state.dataObj}
-          />
-        }
-      </div>
-    );
-  };
+			{isLoading &&
+				/* Regional Trend Table */
+				<Graph
+					dataObj={data}
+				/>
+			}
+			<br/>
+			{isLoading &&
+				/*Table of jobs and change in jobs*/
+				<Table
+					dataObj={data}
+				/>
+			}
+			<br/>
+			{isLoading &&
+				/*Industry Table */
+				<Industry
+					dataObj={data}
+				/>
+			}
+		</div>
+	);
 };
 
 export default App;

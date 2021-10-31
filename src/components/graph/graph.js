@@ -1,123 +1,92 @@
 import React, { Component } from 'react';
-import Chart from "chart.js";
+import { Chart } from "chart.js";
 import percentDiff from 'percentage-difference';
+import range from 'range';
+
 // import "./graph.css";
+import { VictoryChart, VictoryVoronoiContainer, VictoryLine, VictoryGroup, VictoryTooltip, VictoryScatter, VictoryAxis    } from 'victory';
 
 class Graph extends Component {
 
-  //Declaring states
-  state={
-    regionalTrends: null,
-    stateTrends: null,
-    nationTrends: null,
-    yearsArr: []
-  };
 
-  //Loads props after componented mounted
-  componentDidMount(){
+	state = {
 
-    //Calcuate percentage change for the following year
-    const constcalculatesChange = array => {
-      let diffsArr = [];
-        for(let i=0; i < array.length; i++){
-          diffsArr.push(percentDiff(array[0], array[i]))
-        };
+	// 	regionalTrends: null,
+	// 	stateTrends: null,
+	// 	nationTrends: null,
+		yearsArr: []
+	};
 
-      // Return values in percent
-      return(diffsArr);
-    };
+	componentDidMount(){
+		const constcalculatesChange = array => {
+			let diffsArr = [];
+				for(let i=0; i < array.length; i++){
+					diffsArr.push(percentDiff(array[0], array[i]))
+				};
 
-    //Generating year range for x-axis from start to end
-    const labels = (start, end) => {
-      let yearsArr = [];
-      for(let i = start; i <= end; i++){
-        yearsArr.push(i);
-      };
-      return(yearsArr);
-    };
+			return(diffsArr);
+		};
 
-    //Shortening name
-    let data = this.props.dataObj;
-    // console.log(data);
+		//Shortening name
+		let data = this.props.dataObj;
+		// console.log(data);
 
-    this.setState({
+		this.setState({
 
-      //Trends
-      regionalTrends: constcalculatesChange(data.trend_comparison.regional),
-      stateTrends: constcalculatesChange(data.trend_comparison.state),
-      nationTrends: constcalculatesChange(data.trend_comparison.nation),
-      yearsArr: labels(data.summary.jobs_growth.start_year,data.summary.jobs_growth.end_year)
+			//Trends
+			regionalTrends: constcalculatesChange(data.trend_comparison.regional),
+			stateTrends: constcalculatesChange(data.trend_comparison.state),
+			nationTrends: constcalculatesChange(data.trend_comparison.nation),
+			yearsArr: range.range(data.summary.jobs_growth.start_year, data.summary.jobs_growth.end_year + 1)
 
-    });
-  };
+		});
+	};
 
-  render() {
-    const ctx = "graph";
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-          labels: this.state.yearsArr,
-          datasets: [
-            {
-              fill:false,
-              borderColor: "rgb(112, 25, 25)",
-              borderWidth: 2,
-              data: this.state.regionalTrends
-            },
-            {
-              fill:false,
-              borderColor: "rgb(0,0,255)",
-              borderWidth: 2,
-              data: this.state.stateTrends,
-              pointStyle:'rect'
-            },
-            {
-              fill:false,
-              borderColor: "rgb(0,191,255)",
-              borderWidth: 2,
-              data: this.state.nationTrends,
-              borderDash: [10,5],
-              pointStyle:'triangle'
-            }
-          ]
-      },
-      options: {
-        elements: {
-          line: {
-            tension: 0
-          }
-        },
-        legend: {
-          display: false
-        },
-        scales: {
-          yAxes: [
-            {
-              gridLines: {
-                color: "rgba(0, 0, 0, 0)",
-              },
-              ticks: {
-                min: -10
-                // max: 70
-              },
-              scaleLabel: {
-                display: true,
-                labelString: "Percentage Change"
-              }
-            }
-          ]
-        }
-      }
-    });
+	render() {
+		return (
+			<VictoryChart height={500} width={1000}
+				containerComponent={<VictoryVoronoiContainer />}
+			>
+				{/* <VictoryAxis
+					tickValues={[2.11, 3.9, 6.1, 8.05]}
+				/>
+				<VictoryAxis dependentAxis={true}
+					tickValues={this.state.yearsArr}
+				/> */}
 
-    return(
-      <div>
-        <p className="title">Regional Trends</p>
-        <hr style={{borderWidth:"3px"}}/>
-        <canvas id="graph"></canvas>
-      </div>
-    );
-  };
+				<VictoryGroup
+					color="#c43a31"
+					labels={({ datum }) => `${datum._y}`}
+					data={this.state.regionalTrends}
+				>
+
+					<VictoryLine />
+					<VictoryScatter
+						size={({ active }) => active ? 5 : 3}
+					/>
+				</VictoryGroup>
+				<VictoryGroup
+					labels={({ datum }) => ` ${datum._y}`}
+					data={this.state.stateTrends}
+				>
+					<VictoryLine />
+					<VictoryScatter
+						size={({ active }) => active ? 5 : 3}
+					/>
+				</VictoryGroup>
+				<VictoryGroup
+					labels={({ datum }) => ` ${datum._y}`}
+					data={this.state.nationTrends}
+				>
+
+					<VictoryLine />
+					<VictoryScatter
+						size={({ active }) => active ? 5 : 3}
+					/>
+				</VictoryGroup>
+			</VictoryChart>
+		);
+	}
 };
 
 export default Graph;

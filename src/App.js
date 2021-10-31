@@ -18,6 +18,7 @@ function App(){
 
 	useEffect(() => {
 		axios.get(apiUrl).then(response => {
+			console.log('respsonse', response)
 			const data = response.data;
 
 			setData(data);
